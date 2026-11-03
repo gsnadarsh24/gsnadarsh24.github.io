@@ -1,0 +1,24 @@
+{{/* Local override: no share buttons (X, Facebook, email, LinkedIn, WhatsApp), no next/related project links. */}}
+
+{{/* Company badge for project pages. hb-controls.js moves it under the page title.
+     Put the logo at static/img/companies/<company_slug>.png (or .svg / .jpg); without one, a monogram tile is shown. */}}
+{{- with .Params.company -}}
+  {{- $slug := $.Params.company_slug | default (. | urlize) -}}
+  {{- $logo := "" -}}
+  {{- range slice "png" "svg" "jpg" "jpeg" "webp" -}}
+    {{- if and (eq $logo "") (fileExists (printf "static/img/companies/%s.%s" $slug .)) -}}
+      {{- $logo = printf "/img/companies/%s.%s" $slug . -}}
+    {{- end -}}
+  {{- end -}}
+  <div id="hb-company" class="hb-company" hidden>
+    <span class="hb-company-logo">
+      {{- if $logo -}}<img src="{{ $logo | relURL }}" alt="{{ . }} logo">{{- else -}}<span class="hb-company-mono" aria-hidden="true">{{ substr . 0 1 }}</span>{{- end -}}
+    </span>
+    <span class="hb-company-text"><small>{{ if in (slice "cbit") $slug }}Research at{{ else }}Built at{{ end }}</small><b>{{ . }}</b></span>
+  </div>
+{{- end -}}
+
+<div class="max-w-prose print:hidden">
+  {{ partial "page_author" . }}
+  {{ partial "comments" . }}
+</div>

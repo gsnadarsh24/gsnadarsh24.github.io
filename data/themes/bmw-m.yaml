@@ -1,0 +1,37 @@
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "BMW M"
+    vendor: "custom"
+    version: "1.0.0"
+    license: "MIT"
+    description: "M blue and M red on midnight"
+  type: "dual"
+  light:
+    colors:
+      primary: "#1c69d4"
+      secondary: "#e7222e"
+      neutral: "#64748b"
+    surfaces:
+      background: "#ffffff"
+      foreground: "#0b1530"
+      header:
+        background: "#ffffff"
+        foreground: "#0b1530"
+      footer:
+        background: "#ffffff"
+        foreground: "#0b1530"
+  dark:
+    colors:
+      primary: "#2f7fe8"
+      secondary: "#e7222e"
+      neutral: "#64748b"
+    surfaces:
+      background: "#060b17"
+      foreground: "#eef3ff"
+      header:
+        background: "#0a1226"
+        foreground: "#eef3ff"
+      footer:
+        background: "#040810"
+        foreground: "#eef3ff"

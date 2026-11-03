@@ -1,0 +1,42 @@
+{{/* Local override of the Hugo Blox footer: same footer block, without the "Made with Hugo Blox" attribution line.
+     Also hosts: back-to-top button, scroll progress bar, and the theme + scrollbar dropdowns (moved into the header by JS). */}}
+<footer class="container mx-auto flex flex-col justify-items-center text-sm leading-6 mt-24 mb-4 text-slate-700 dark:text-slate-200">
+
+  {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
+
+  {{- $footer_config := site.Params.hugoblox.footer | default dict -}}
+  {{- $footer_section_name := partial "hbx/resolve-block-param" (dict "config" $footer_config "context" "footer") | default "minimal" -}}
+  {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
+  {{ if not (templates.Exists (printf "_partials/%s" $footer_section_path)) }}
+    {{ errorf "Check your `params.yaml`. Cannot find footer block at `layouts/_partials/%s`" $footer_section_path }}
+  {{ end }}
+  {{ partial $footer_section_path . }}
+
+</footer>
+
+{{/* Back-to-top button is created by hb-controls.js (fixed at the right edge, themed per pack) */}}
+
+<link rel="stylesheet" href="{{ (resources.Get "css/controls.css" | resources.Minify).RelPermalink }}">
+<div id="hb-progress" aria-hidden="true"></div>
+
+{{/* Theme list for the dropdown, generated from every theme pack in data/themes */}}
+{{- $list := slice -}}
+{{/* Themes hidden from the dropdown (remove an id from this list to bring it back) */}}
+{{- $hidden := slice "synthwave" "solar" "retro" "minimal" "matcha" "marine" "dracula" "default" "cupcake" "coffee" "contrast" "northwestern" "phthalo" "mclaren" "raceday" "ferrari" "redbull" -}}
+{{- range $name, $d := hugo.Data.themes -}}
+  {{- if not (in $hidden $name) -}}
+  {{- $hb := $d.hugoblox -}}
+  {{- $mode := $hb.meta.default_mode | default "dark" -}}
+  {{- $v := cond (eq $mode "light") ($hb.light | default $hb.dark) ($hb.dark | default $hb.light) -}}
+  {{- $list = $list | append (dict "id" $name "label" ($hb.meta.name | default ($name | humanize)) "mode" $mode "bg" $v.surfaces.background "fg" $v.surfaces.foreground "head" $v.surfaces.header.background "p" $v.colors.primary "s" $v.colors.secondary) -}}
+  {{- end -}}
+{{- end -}}
+{{- $default_pack := "" -}}
+{{- with site.Params.hugoblox.theme.pack -}}{{- if reflect.IsMap . -}}{{- $default_pack = .dark | default .light | default "" -}}{{- else -}}{{- $default_pack = . -}}{{- end -}}{{- end -}}
+{{/* Back-to-top logos for the Robots in Disguise theme: cropped around the emblem and resized */}}
+{{- $autobot := "" -}}
+{{- $decepticon := "" -}}
+{{- with resources.Get "img/autobot.png" -}}{{- $autobot = (.Crop "520x520 center" | images.Filter (images.Process "resize 200x png")).RelPermalink -}}{{- end -}}
+{{- with resources.Get "img/decepticon.webp" -}}{{- $decepticon = (.Crop "1000x1000 center" | images.Filter (images.Process "resize 200x png")).RelPermalink -}}{{- end -}}
+<script type="application/json" id="hb-themes" data-default="{{ $default_pack }}" data-email="{{ with hugo.Data.authors.me }}{{ .email }}{{ end }}" data-resume="{{ "uploads/resume.pdf" | relURL }}" data-autobot="{{ $autobot }}" data-decepticon="{{ $decepticon }}">{{ $list | jsonify | safeJS }}</script>
+<script src="{{ (resources.Get "js/hb-controls.js" | resources.Minify).RelPermalink }}" defer></script>

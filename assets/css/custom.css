@@ -1,0 +1,91 @@
+/* Motorsport-style backgrounds. Colours follow the active theme pack (primary / secondary). */
+
+:root {
+  --p: var(--color-primary-500);
+  --s: var(--color-secondary-500);
+}
+
+/* ── Hero: diagonal racing stripes, glow, and a fine carbon-fibre weave ── */
+#hero {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--hb-color-background) !important;
+  background-image:
+    /* twin racing stripes */
+    linear-gradient(112deg,
+      transparent 0 70%,
+      color-mix(in srgb, var(--p) 50%, transparent) 70% 73%,
+      transparent 73% 74.5%,
+      color-mix(in srgb, var(--s) 50%, transparent) 74.5% 76%,
+      transparent 76%),
+    /* soft glows */
+    radial-gradient(60rem 36rem at 12% 10%, color-mix(in srgb, var(--p) 28%, transparent), transparent 70%),
+    radial-gradient(50rem 30rem at 92% 85%, color-mix(in srgb, var(--s) 24%, transparent), transparent 70%),
+    /* carbon weave */
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.035) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.22) 0 2px, transparent 2px 6px) !important;
+}
+
+/* Chequered-flag strip along the bottom edge of the hero */
+#hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    conic-gradient(var(--p) 25%, transparent 0 50%, var(--p) 0 75%, transparent 0) 0 0 / 28px 28px;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to top, #000, transparent);
+  mask-image: linear-gradient(to top, #000, transparent);
+}
+
+/* ── Sections below: alternating tinted bands that follow the theme ── */
+#projects,
+#experience {
+  background: color-mix(in srgb, var(--p) 7%, var(--hb-color-background)) !important;
+}
+#skills,
+#contact {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--s) 8%, transparent), transparent 55%),
+    color-mix(in srgb, var(--p) 3%, var(--hb-color-background)) !important;
+}
+#section-cta-card {
+  background: var(--hb-color-background) !important;
+}
+
+/* Thin accent line between sections */
+#projects,
+#skills,
+#experience,
+#contact {
+  border-top: 1px solid color-mix(in srgb, var(--p) 35%, transparent);
+}
+
+/* Let the section backgrounds above show through the block's own opaque layer */
+#hero .home-section-bg,
+#projects .home-section-bg,
+#skills .home-section-bg,
+#experience .home-section-bg,
+#contact .home-section-bg,
+#section-cta-card .home-section-bg {
+  background-color: transparent !important;
+}
+
+/* Light mode: softer weave so it doesn't look streaky on white */
+html:not(.dark) #hero {
+  background-image:
+    linear-gradient(112deg,
+      transparent 0 70%,
+      color-mix(in srgb, var(--p) 55%, transparent) 70% 73%,
+      transparent 73% 74.5%,
+      color-mix(in srgb, var(--s) 70%, transparent) 74.5% 76%,
+      transparent 76%),
+    radial-gradient(60rem 36rem at 12% 10%, color-mix(in srgb, var(--p) 14%, transparent), transparent 70%),
+    radial-gradient(50rem 30rem at 92% 85%, color-mix(in srgb, var(--s) 18%, transparent), transparent 70%),
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.018) 0 2px, transparent 2px 6px) !important;
+}

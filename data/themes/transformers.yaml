@@ -1,0 +1,37 @@
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Robots in Disguise"
+    vendor: "custom"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Cel-shaded Autobot red, blue and yellow with comic outlines"
+  type: "dual"
+  light:
+    colors:
+      primary: "#e8252c"
+      secondary: "#1d5fd6"
+      neutral: "#64748b"
+    surfaces:
+      background: "#eaf0ff"
+      foreground: "#0b0f1f"
+      header:
+        background: "#eaf0ff"
+        foreground: "#0b0f1f"
+      footer:
+        background: "#eaf0ff"
+        foreground: "#0b0f1f"
+  dark:
+    colors:
+      primary: "#f23a40"
+      secondary: "#ffd21f"
+      neutral: "#7b86a8"
+    surfaces:
+      background: "#0b0f1f"
+      foreground: "#f4f7ff"
+      header:
+        background: "#12306e"
+        foreground: "#ffffff"
+      footer:
+        background: "#070a14"
+        foreground: "#f4f7ff"

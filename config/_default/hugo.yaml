@@ -6,7 +6,7 @@
 # Website name (set in params.yaml under hugoblox.branding.name)
 title: ''
 # Website URL
-baseURL: 'https://example.com/'
+baseURL: 'https://gsnadarsh24.github.io/'
 
 ############################
 ## LANGUAGE
@@ -16,16 +16,6 @@ defaultContentLanguage: en
 hasCJKLanguage: false
 defaultContentLanguageInSubdir: false
 removePathAccents: true
-
-############################
-## PAGE OPTIONS
-############################
-
-cascade:
-  - target:
-      path: /slides/**
-      kind: page
-    outputs: [HTML, present]
 
 ############################
 ## ADVANCED
